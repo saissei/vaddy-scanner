@@ -1,0 +1,60 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true,
+    "es2020": true,
+    "browser": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "tsconfigRootDir": ".",
+    "createDefaultProgram": true,
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "prettier/@typescript-eslint",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:prettier/recommended"
+  ],
+
+  "rules": {
+    "no-unused-vars": "off",
+    "no-var": 2,
+    "eqeqeq": "error",
+    "quotes": ["error", "single"],
+    "semi": "error",
+    "keyword-spacing": 2,
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/type-annotation-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true,
+        "overrides": {
+          "arrow": {
+            "before": true,
+            "after": true
+          }
+        }
+      }
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi"
+        },
+        "singleline": {
+          "delimiter": "semi"
+        }
+      }
+    ],
+    "@typescript-eslint/consistent-type-definitions": "off"
+  }
+}

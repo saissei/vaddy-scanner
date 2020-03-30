@@ -1,0 +1,66 @@
+{
+  "name": "vaddy-tool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production node ./dist/server/www.js",
+    "dev": "NODE_ENV=development ts-node-dev ./src/server/www.ts",
+    "lint": "eslint 'src/**/*.ts{,x}' --fix",
+    "build": "gulp build",
+    "test": "npx jest test --no-cache --silent=false --verbose true --coverage"
+  },
+  "bin": {
+    "vaddy-scan": "./dist/main/app.js"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.0",
+    "@types/check-types": "7.3.1",
+    "@types/jest": "24.9.1",
+    "@types/node": "13.9.5",
+    "@types/qs": "6.9.1",
+    "@typescript-eslint/eslint-plugin": "2.17.0",
+    "@typescript-eslint/parser": "2.17.0",
+    "@typescript-eslint/typescript-estree": "2.17.0",
+    "commander": "5.0.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "gulp": "4.0.2",
+    "gulp-nodemon": "2.4.2",
+    "gulp-plumber": "1.2.1",
+    "gulp-typescript": "6.0.0-alpha.1",
+    "jest": "25.1.0",
+    "prettier": "1.19.1",
+    "ts-jest": "25.3.0",
+    "ts-node": "8.8.1",
+    "ts-node-dev": "1.0.0-pre.44",
+    "typescript": "3.7.2"
+  },
+  "dependencies": {
+    "@types/commander": "2.12.2",
+    "@types/dotenv": "8.2.0",
+    "axios": "0.19.2",
+    "check-types": "11.1.2",
+    "dotenv": "8.2.0",
+    "qs": "6.9.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/*.tests.ts"
+    ]
+  }
+}
