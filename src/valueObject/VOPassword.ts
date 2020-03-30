@@ -1,11 +1,12 @@
 import { VOError } from './VOErrorHandler';
+import { ConsoleMessage } from '../presenter/message';
 
 export class VOPassword {
   private password: string;
   public static of(password: unknown): VOPassword | undefined {
     if ( typeof password !== 'string'){
       const errorMessage = VOError.typeError('password is not found or input data type is not string');
-      console.error(errorMessage);
+      ConsoleMessage.error(errorMessage);
       return;
     }
     return new VOPassword(password);

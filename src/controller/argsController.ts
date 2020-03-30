@@ -8,22 +8,17 @@ import { VORequestResultBody } from '../valueObject/VORequestResultBody';
 export class ArgsController {
   public static check(options: CommanderStatic): boolean {
     if ( options.user === undefined) {
-      /* const errorMessage = VOError.typeError('userId is not found. Please set option "-u {VAddy userId}"');
-      console.error(errorMessage); */
       return false;
     }
 
     if ( options.authkey === undefined) {
-      /* const errorMessage = VOError.typeError('authkey is not found. Please set option "-u {VAddy api key}"');
-      console.error(errorMessage); */
       return false;
     }
 
-    if ( options.projectId === undefined) {
-      /* const errorMessage = VOError.typeError('projectId is not found. Please set option "-u {VAddy projectId}"');
-      console.error(errorMessage); */
+    if ( options.projectid === undefined) {
       return false;
     }
+
     return true;
   }
 

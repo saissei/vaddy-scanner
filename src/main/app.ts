@@ -1,6 +1,8 @@
-
+#!/usr/bin/env node
 import commander from 'commander';
 import { ArgsController } from '../controller/argsController';
+import { ConsoleMessage } from '../presenter/message';
+
 
 import { VOUser } from '../valueObject/VOUser';
 import { VOAuthKey } from '../valueObject/VOAuthKey';
@@ -14,29 +16,28 @@ import { VOScanResult } from '../valueObject/VOScanResult';
 import { Result } from '../controller/result';
 
 commander
-  .option('-u, --user', 'VAddyのログインユーザーを入力してください')
-  .option('-k, --authkey', 'VAddyのAPI_KEYを入力してください')
-  .option('-p, --projectid', 'VAddyのProject_Idを入力してください')
-  .option('-c, --crawlid', 'VAddyのCrawl＿Idを入力してください')
+  .option('-u, --user <items>', 'VAddyのログインユーザーを入力してください')
+  .option('-k, --authkey <items>', 'VAddyのAPI_KEYを入力してください')
+  .option('-p, --projectid <items>', 'VAddyのProject_Idを入力してください')
+  .option('-c, --crawlid <items>', 'VAddyのCrawl＿Idを入力してください')
   .parse(process.argv);
-console.info('process start.');
+ConsoleMessage.info('process start.');
 
 
 const optionCheck: boolean = ArgsController.check(commander);
 if (!optionCheck) {
   const userConfig = VOConfig.load();
 
-
   if ( userConfig === undefined ) {
-    console.error('VAddy config was not found');
+    ConsoleMessage.error('VAddy config was not found');
     process.exit(1);
   }
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   (async () => {
-    console.info('load configuration .env');
+    ConsoleMessage.info('load configuration .env');
 
     const scanBody: VOScanBody = VOScanBody.ofConfig(userConfig);
-    console.info('Scanning start...');
+    ConsoleMessage.info('Scanning start...');
     const crawler: string | undefined = await ArgsController.scanControll(scanBody);
     if (crawler === undefined){
       process.exit(1);
@@ -54,7 +55,7 @@ if (optionCheck){
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   ( async () => {
     const user: VOUser | undefined = VOUser.of(commander.user);
-    const key: VOAuthKey | undefined = VOAuthKey.of(commander.authKey);
+    const key: VOAuthKey | undefined = VOAuthKey.of(commander.authkey);
     const project: VOProject | undefined = VOProject.of(commander.projectid);
     if ( user === undefined ){
       process.exit(1);
@@ -66,6 +67,7 @@ if (optionCheck){
       process.exit(1);
     }
     // シナリオ指定がある場合
+    ConsoleMessage.info('Scanning start...');
     if ( commander.crawlid !== undefined) {
       const crawl: VOSenario | undefined = VOSenario.of(commander.crawlid);
       if ( crawl === undefined ){
@@ -78,6 +80,8 @@ if (optionCheck){
       }
       const scanId: VOScanId = VOScanId.of(crawler);
       const resultBody: VORequestResultBody = VORequestResultBody.of(user, key, scanId);
+      ConsoleMessage.info('Scan performed!');
+      ConsoleMessage.info('Obtaining test results...');
       const scanResult = await ArgsController.resultController(resultBody);
       const result = VOScanResult.of(scanResult);
       Result.message(result);
@@ -97,3 +101,4 @@ if (optionCheck){
     return;
   })();
 }
+

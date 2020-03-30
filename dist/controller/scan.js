@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
+const message_1 = require("../presenter/message");
 class Scan {
     static async start(scanBody) {
         try {
@@ -14,18 +15,18 @@ class Scan {
             return response.scan_id;
         }
         catch (err) {
-            console.error('error happened at start scan');
+            message_1.ConsoleMessage.error('error happened at start scan');
             switch (err.response.status) {
                 case '400': {
-                    console.error(`error: ${err.response.data.error_message}`);
+                    message_1.ConsoleMessage.error(`error: ${err.response.data.error_message}`);
                     return;
                 }
                 case '401': {
-                    console.error('error: authenticate error');
+                    message_1.ConsoleMessage.error('error: authenticate error');
                     return;
                 }
                 default: {
-                    console.error(err);
+                    message_1.ConsoleMessage.error(err);
                     return;
                 }
             }

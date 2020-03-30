@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { ConsoleMessage } from '../presenter/message';
 import { VOScanBody } from '../valueObject/VOScanBody';
 
 type ResponseData = {
@@ -16,18 +17,18 @@ export class Scan {
       const response: ResponseData = scan.data;
       return response.scan_id;
     } catch (err) {
-      console.error('error happened at start scan');
+      ConsoleMessage.error('error happened at start scan');
       switch (err.response.status) {
         case '400': {
-          console.error(`error: ${err.response.data.error_message}`);
+          ConsoleMessage.error(`error: ${err.response.data.error_message}`);
           return;
         }
         case '401': {
-          console.error('error: authenticate error');
+          ConsoleMessage.error('error: authenticate error');
           return;
         }
         default: {
-          console.error(err);
+          ConsoleMessage.error(err);
           return;
         }
       }

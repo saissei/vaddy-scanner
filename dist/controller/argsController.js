@@ -10,7 +10,7 @@ class ArgsController {
         if (options.authkey === undefined) {
             return false;
         }
-        if (options.projectId === undefined) {
+        if (options.projectid === undefined) {
             return false;
         }
         return true;

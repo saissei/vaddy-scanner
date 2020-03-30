@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
+const message_1 = require("../presenter/message");
+const sleep = (msec) => new Promise(resolve => setTimeout(resolve, msec));
 class Result {
     static async reference(requestBody) {
         const reqBody = requestBody.toQuery();
@@ -19,10 +21,11 @@ class Result {
             const result = await axios_1.default.get(url);
             const status = result.data.status;
             if (status === 'scanning') {
+                await sleep(5000);
                 return this.crawl(reqBody);
             }
             if (status === 'canceled') {
-                console.error('scanning status is canceled');
+                message_1.ConsoleMessage.error('scanning status is canceled');
                 return;
             }
             if (status === 'finish') {
@@ -31,18 +34,18 @@ class Result {
             return;
         }
         catch (err) {
-            console.error('error happened at get scan result');
+            message_1.ConsoleMessage.error('error happened at get scan result');
             switch (err.response.status) {
                 case '400': {
-                    console.error(`error: ${err.response.data.error_message}`);
+                    message_1.ConsoleMessage.error(`error: ${err.response.data.error_message}`);
                     return;
                 }
                 case '401': {
-                    console.error('error: authenticate error');
+                    message_1.ConsoleMessage.error('error: authenticate error');
                     return;
                 }
                 default: {
-                    console.error(err);
+                    message_1.ConsoleMessage.error(err);
                     return;
                 }
             }
@@ -51,11 +54,11 @@ class Result {
     static message(result) {
         const alert = result.securityProblem();
         if (alert) {
-            console.error('Vulnerability detected');
-            console.error(result.extractResultUrl);
+            message_1.ConsoleMessage.error('Vulnerability detected');
+            message_1.ConsoleMessage.error(result.extractResultUrl());
             return process.exit(1);
         }
-        console.info('No vulnerabilities detected');
+        message_1.ConsoleMessage.success('Success: No vulnerabilities detected');
         return process.exit(0);
     }
 }

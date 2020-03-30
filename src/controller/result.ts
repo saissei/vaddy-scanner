@@ -1,5 +1,6 @@
 import { VORequestResultBody } from '../valueObject/VORequestResultBody';
 import axios, { AxiosResponse } from 'axios';
+import { ConsoleMessage } from '../presenter/message';
 import { VOScanResult } from '#/valueObject/VOScanResult';
 
 export type ScanResult = {
@@ -17,6 +18,8 @@ export type ScanResult = {
   'scan_list': Array<string>;
 }
 
+const sleep = (msec: number): Promise<unknown> => new Promise(resolve => setTimeout(resolve, msec));
+
 export class Result {
   public static async reference(requestBody: VORequestResultBody): Promise<ScanResult|undefined> {
     const reqBody = requestBody.toQuery();
@@ -32,10 +35,11 @@ export class Result {
       const result: AxiosResponse<ScanResult> = await axios.get(url);
       const status = result.data.status;
       if ( status === 'scanning' ) {
+        await sleep(5000);
         return this.crawl(reqBody);
       }
       if ( status === 'canceled' ) {
-        console.error('scanning status is canceled');
+        ConsoleMessage.error('scanning status is canceled');
         return;
       }
       if ( status === 'finish') {
@@ -43,18 +47,18 @@ export class Result {
       }
       return;
     } catch (err){
-      console.error('error happened at get scan result');
+      ConsoleMessage.error('error happened at get scan result');
       switch (err.response.status) {
         case '400': {
-          console.error(`error: ${err.response.data.error_message}`);
+          ConsoleMessage.error(`error: ${err.response.data.error_message}`);
           return;
         }
         case '401': {
-          console.error('error: authenticate error');
+          ConsoleMessage.error('error: authenticate error');
           return;
         }
         default: {
-          console.error(err);
+          ConsoleMessage.error(err);
           return;
         }
       }
@@ -64,11 +68,11 @@ export class Result {
   public static message(result: VOScanResult): void {
     const alert = result.securityProblem();
     if (alert) {
-      console.error('Vulnerability detected');
-      console.error(result.extractResultUrl);
+      ConsoleMessage.error('Vulnerability detected');
+      ConsoleMessage.error(result.extractResultUrl());
       return process.exit(1);
     }
-    console.info('No vulnerabilities detected');
+    ConsoleMessage.success('Success: No vulnerabilities detected');
     return process.exit(0);
   }
 }

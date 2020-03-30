@@ -4,7 +4,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "esnext",
-    "strict": true,
+    "strict": false,
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
