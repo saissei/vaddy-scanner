@@ -1,7 +1,7 @@
 import { VORequestResultBody } from '../valueObject/VORequestResultBody';
 import axios, { AxiosResponse } from 'axios';
 import { ConsoleMessage } from '../presenter/message';
-import { VOScanResult } from '#/valueObject/VOScanResult';
+import { VOScanResult } from '../valueObject/VOScanResult';
 
 export type ScanResult = {
   'status': string;

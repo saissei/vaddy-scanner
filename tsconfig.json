@@ -13,10 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext"],
     "types": ["node", "jest"],
-    "baseUrl": "./src/",
-    "paths": {
-      "#/*": ["*"]
-    }
+    "baseUrl": "./src/"
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "**/**/__tests__", "*.test.ts"],

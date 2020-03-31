@@ -1,12 +1,10 @@
-import { VOError } from './VOErrorHandler';
-import { ConsoleMessage } from '../presenter/message';
+import { ErrorSwitcher } from '../controller/error';
 
 export class VOSenario {
   private senarioId: number;
   public static of(senarioId: unknown): VOSenario | undefined {
     if (  typeof senarioId !== 'number'){
-      const errorMessage = VOError.typeError('projectId is not found or input data type is not string');
-      ConsoleMessage.error(errorMessage);
+      ErrorSwitcher.handle('projectId is not found or input data type is not string');
       return;
     }
     return new VOSenario(senarioId);

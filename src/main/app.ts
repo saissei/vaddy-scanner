@@ -14,19 +14,24 @@ import { VOScanId } from '../valueObject/VOScanId';
 import { VOConfig } from '../valueObject/VOConfig';
 import { VOScanResult } from '../valueObject/VOScanResult';
 import { Result } from '../controller/result';
+import { ErrorSwitcher } from 'controller/error';
 
 commander
   .option('-u, --user <items>', 'VAddyのログインユーザーを入力してください')
   .option('-k, --authkey <items>', 'VAddyのAPI_KEYを入力してください')
   .option('-p, --projectid <items>', 'VAddyのProject_Idを入力してください')
   .option('-c, --crawlid <items>', 'VAddyのCrawl＿Idを入力してください')
+  .option('-f, --file <items>', 'VAddyのユーザー情報を含む設定ファイル名を入力してください')
   .parse(process.argv);
 ConsoleMessage.info('process start.');
 
 
 const optionCheck: boolean = ArgsController.check(commander);
 if (!optionCheck) {
-  const userConfig = VOConfig.load();
+  if (!commander.file){
+    ErrorSwitcher.handle('オプションを指定しない場合はコンフィグファイルを指定してください。');
+  }
+  const userConfig = VOConfig.load(commander.file);
 
   if ( userConfig === undefined ) {
     ConsoleMessage.error('VAddy config was not found');

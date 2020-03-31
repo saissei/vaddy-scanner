@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+import path from 'path';
 
 export type UserInfo = {
   user: string;
@@ -9,13 +10,17 @@ export type UserInfo = {
 
 export class VOConfig {
   private userConf: UserInfo;
-  public static load(): VOConfig | undefined {
+  public static load(fileName: string): VOConfig | undefined {
+    const envFile = path.resolve(process.cwd(), fileName);
+    dotenv.config({path: envFile, debug: true});
+    console.log(envFile);
     /* eslint-disable @typescript-eslint/camelcase */
     const user = process.env.user;
     const auth_key = process.env.key;
     const project_id = process.env.projectId;
     const crawl = process.env.crawlId;
     const crawl_id = Number(crawl);
+
     if ( user === undefined) {
       return;
     }
@@ -25,7 +30,7 @@ export class VOConfig {
     if ( project_id === undefined) {
       return;
     }
-    if ( crawl_id !== undefined ){
+    if ( !isNaN(crawl_id) ){
       return new VOConfig({ user, auth_key, project_id, crawl_id });
     }
     return new VOConfig({ user, auth_key, project_id });

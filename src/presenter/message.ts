@@ -5,17 +5,20 @@ const green   = '\u001b[32m';
 const blue    = '\u001b[34m';
 /* const magenta = '\u001b[35m';
 const cyan    = '\u001b[36m';
-const white   = '\u001b[37m';
-const reset   = '\u001b[0m'; */
+const white   = '\u001b[37m'; */
+const reset   = '\u001b[0m';
 
 export class ConsoleMessage {
   public static info(message: string): void {
     console.info(blue + message);
+    console.log(reset);
   }
   public static success(message: string): void {
     console.info(green + message);
+    console.log(reset);
   }
   public static error(message: unknown): void {
     console.error(red + message);
+    console.log(reset);
   }
 }

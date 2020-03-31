@@ -1,12 +1,10 @@
-import { VOError } from './VOErrorHandler';
-import { ConsoleMessage } from '../presenter/message';
+import { ErrorSwitcher } from '../controller/error';
 
 export class VOAuthKey {
   private authKey: string;
   public static of(authKey: unknown): VOAuthKey | undefined {
     if ( typeof authKey !== 'string'){
-      const errorMessage = VOError.typeError('authkey is not found or input data type is not string');
-      ConsoleMessage.error(errorMessage);
+      ErrorSwitcher.handle('authkey is not found or input data type is not string');
       return;
     }
     return new VOAuthKey(authKey);

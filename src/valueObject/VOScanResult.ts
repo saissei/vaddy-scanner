@@ -1,4 +1,4 @@
-import { ScanResult } from '#/controller/result';
+import { ScanResult } from '../controller/result';
 
 export class VOScanResult {
   private resultAll: ScanResult;
