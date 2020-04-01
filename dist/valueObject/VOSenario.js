@@ -6,14 +6,17 @@ class VOSenario {
         this.senarioId = senarioId;
     }
     static of(senarioId) {
-        if (typeof senarioId !== 'number') {
-            error_1.ErrorSwitcher.handle('projectId is not found or input data type is not string');
+        if (typeof senarioId !== 'string') {
+            error_1.ErrorSwitcher.handle('senarioId is not found or input data type is not string');
             return;
         }
         return new VOSenario(senarioId);
     }
-    toNumber() {
+    toString() {
         return this.senarioId;
+    }
+    toNumber() {
+        return Number(this.senarioId);
     }
 }
 exports.VOSenario = VOSenario;

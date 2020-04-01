@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class VOError {
     static typeError(message) {
-        const error = new TypeError(message);
+        const error = message;
         return error;
     }
 }
