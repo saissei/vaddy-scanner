@@ -17,10 +17,8 @@ export class Result {
   public static async crawl(reqBody: string): Promise<ScanResult|undefined> {
     try {
       const url = `https://api.vaddy.net/v2/scan/result?${reqBody}`;
-      console.log(url);
       const result: AxiosResponse<ScanResult> = await axios.get(url);
       const status = result.data.status;
-      console.log(result.data);
       if ( status === 'scanning' ) {
         await sleep(5000);
         return this.crawl(reqBody);

@@ -2,8 +2,16 @@ import { VOSenario } from '../VOSenario';
 import sinon from 'sinon';
 
 describe('VOSenario 正常系', () => {
-  it('number test', () => {
-    const senario = VOSenario.of(123);
+  it('string test', () => {
+    const senario = VOSenario.of('123');
+    if ( senario === undefined) {
+      return;
+    }
+    const id = senario.toString();
+    expect(id).toEqual('123');
+  });
+  it('string test', () => {
+    const senario = VOSenario.of('123');
     if ( senario === undefined) {
       return;
     }
@@ -24,8 +32,8 @@ describe('VOSenario 異常系', () => {
     logger.restore();
   });
 
-  it('string test', () => {
-    VOSenario.of('123');
+  it('number test', () => {
+    VOSenario.of(123);
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });
