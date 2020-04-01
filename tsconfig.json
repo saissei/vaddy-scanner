@@ -4,7 +4,8 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "esnext",
-    "strict": false,
+    "strict": true,
+    "declaration": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
@@ -16,6 +17,6 @@
     "baseUrl": "./src/"
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "**/**/__tests__", "*.test.ts"],
+  "exclude": ["node_modules", "**/**/__tests__", "**/*.test.ts"],
   "compileOnSave": false
 }

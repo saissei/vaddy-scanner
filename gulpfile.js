@@ -14,7 +14,7 @@ gulp.task("main", () => {
   return gulp
     .src([
       "src/main/**/**",
-      "!src/**/**/__tests__"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("main")
     })
@@ -27,7 +27,7 @@ gulp.task("controller", () => {
   return gulp
     .src([
       "src/controller/**/**",
-      "!src/**/**/__tests__"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("controller")
     })
@@ -40,7 +40,7 @@ gulp.task("interactor", () => {
   return gulp
     .src([
       "src/interactor/**/*.ts",
-      "!src/**/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("interactor")
     })
@@ -53,7 +53,7 @@ gulp.task("logger", () => {
   return gulp
     .src([
       "src/logger/**/*.ts",
-      "!src/**/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("logger")
     })
@@ -66,7 +66,7 @@ gulp.task("presenter", () => {
   return gulp
     .src([
       "src/presenter/**/*.ts",
-      "!src/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("presenter")
     })
@@ -79,7 +79,7 @@ gulp.task("repository", () => {
   return gulp
     .src([
       "src/repository/**/*.ts",
-    "!src/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
   ], {
       since: gulp.lastRun("repository")
     })
@@ -92,7 +92,7 @@ gulp.task("routes", () => {
   return gulp
     .src([
       "src/routes/**/*.ts",
-      "!src/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
   ], {
       since: gulp.lastRun("routes")
     })
@@ -105,7 +105,7 @@ gulp.task("server", () => {
   return gulp
     .src([
       "src/server/**/*.ts",
-      "!src/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
   ], {
       since: gulp.lastRun("server")
     })
@@ -118,7 +118,7 @@ gulp.task("types", () => {
   return gulp
     .src([
       "src/types/**/*.ts",
-      "!src/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("types")
     })
@@ -131,7 +131,7 @@ gulp.task("valueObject", () => {
   return gulp
     .src([
       "src/valueObject/**/*.ts",
-      "!src/**/__tests__/**"
+      "!src/**/__tests__/*.test.ts"
     ], {
       since: gulp.lastRun("valueObject")
     })

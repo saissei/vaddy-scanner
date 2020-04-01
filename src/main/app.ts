@@ -47,7 +47,11 @@ if (!optionCheck) {
     if (crawler === undefined){
       process.exit(1);
     }
-    const scanId: VOScanId = VOScanId.of(crawler);
+    const scanId: VOScanId | undefined = VOScanId.of(crawler);
+    if ( scanId === undefined){
+      ErrorSwitcher.handle('start scan error.\nPlease Check VAddy Page');
+      return;
+    }
     const resultBody: VORequestResultBody = VORequestResultBody.ofConfig(userConfig, scanId);
     const scanResult = await ArgsController.resultController(resultBody);
     const result = VOScanResult.of(scanResult);
@@ -83,7 +87,11 @@ if (optionCheck){
       if (crawler === undefined){
         process.exit(1);
       }
-      const scanId: VOScanId = VOScanId.of(crawler);
+      const scanId: VOScanId | undefined = VOScanId.of(crawler);
+      if ( scanId === undefined){
+        ErrorSwitcher.handle('start scan error.\nPlease Check VAddy Page');
+        return;
+      }
       const resultBody: VORequestResultBody = VORequestResultBody.of(user, key, scanId);
       ConsoleMessage.info('Scan performed!');
       ConsoleMessage.info('Obtaining test results...');
@@ -98,7 +106,11 @@ if (optionCheck){
     if (crawler === undefined){
       process.exit(1);
     }
-    const scanId: VOScanId = VOScanId.of(crawler);
+    const scanId: VOScanId | undefined = VOScanId.of(crawler);
+    if ( scanId === undefined){
+      ErrorSwitcher.handle('start scan error.\nPlease Check VAddy Page');
+      return;
+    }
     const resultBody: VORequestResultBody = VORequestResultBody.of(user, key, scanId);
     const scanResult = await ArgsController.resultController(resultBody);
     const result = VOScanResult.of(scanResult);
