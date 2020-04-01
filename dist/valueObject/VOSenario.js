@@ -1,15 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const VOErrorHandler_1 = require("./VOErrorHandler");
-const message_1 = require("../presenter/message");
+const error_1 = require("../controller/error");
 class VOSenario {
     constructor(senarioId) {
         this.senarioId = senarioId;
     }
     static of(senarioId) {
         if (typeof senarioId !== 'number') {
-            const errorMessage = VOErrorHandler_1.VOError.typeError('projectId is not found or input data type is not string');
-            message_1.ConsoleMessage.error(errorMessage);
+            error_1.ErrorSwitcher.handle('projectId is not found or input data type is not string');
             return;
         }
         return new VOSenario(senarioId);

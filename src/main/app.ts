@@ -14,7 +14,7 @@ import { VOScanId } from '../valueObject/VOScanId';
 import { VOConfig } from '../valueObject/VOConfig';
 import { VOScanResult } from '../valueObject/VOScanResult';
 import { Result } from '../controller/result';
-import { ErrorSwitcher } from 'controller/error';
+import { ErrorSwitcher } from '../controller/error';
 
 commander
   .option('-u, --user <items>', 'VAddyのログインユーザーを入力してください')

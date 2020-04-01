@@ -18,8 +18,10 @@ class Result {
     static async crawl(reqBody) {
         try {
             const url = `https://api.vaddy.net/v2/scan/result?${reqBody}`;
+            console.log(url);
             const result = await axios_1.default.get(url);
             const status = result.data.status;
+            console.log(result.data);
             if (status === 'scanning') {
                 await sleep(5000);
                 return this.crawl(reqBody);

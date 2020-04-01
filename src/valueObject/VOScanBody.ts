@@ -4,7 +4,7 @@ import { VOProject } from './VOProject';
 import { VOSenario } from './VOSenario';
 import { VOConfig } from './VOConfig';
 
-type RequestBody = {
+export type ScanBody = {
   action: string;
   user: string;
   auth_key: string;
@@ -13,7 +13,7 @@ type RequestBody = {
 }
 
 export class VOScanBody {
-  private scanBody: RequestBody;
+  private scanBody: ScanBody;
   public static of(user: VOUser, key: VOAuthKey, project: VOProject, senario?: VOSenario): VOScanBody {
 
     const userId = user.toString();
@@ -21,7 +21,7 @@ export class VOScanBody {
     const projectId = project.toString();
     if ( senario ){
       const senarioId = senario.toNumber();
-      const scanBody: RequestBody = {
+      const scanBody: ScanBody = {
         action: 'start',
         user: userId,
         'auth_key': authKey,
@@ -30,7 +30,7 @@ export class VOScanBody {
       };
       return new VOScanBody(scanBody);
     }
-    const scanBody: RequestBody = {
+    const scanBody: ScanBody = {
       action: 'start',
       user: userId,
       'auth_key': authKey,
@@ -40,7 +40,7 @@ export class VOScanBody {
   }
   public static ofConfig(userConfig: VOConfig): VOScanBody {
     const information = userConfig.toJson();
-    const scanBody: RequestBody = {
+    const scanBody: ScanBody = {
       action: 'start',
       user: information.user,
       'auth_key': information.auth_key,
@@ -54,10 +54,10 @@ export class VOScanBody {
 
     return new VOScanBody(scanBody);
   }
-  private constructor(scanBody: RequestBody) {
+  private constructor(scanBody: ScanBody) {
     this.scanBody = scanBody;
   }
-  public toJson(): RequestBody {
+  public toJson(): ScanBody {
     return this.scanBody;
   }
 }

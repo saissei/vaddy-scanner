@@ -2,8 +2,9 @@ import { CommanderStatic } from 'commander';
 
 import { Scan } from './scan';
 import { VOScanBody } from '../valueObject/VOScanBody';
-import { Result, ScanResult } from './result';
+import { Result } from './result';
 import { VORequestResultBody } from '../valueObject/VORequestResultBody';
+import { ScanResult } from '../valueObject/VOScanResult';
 
 export class ArgsController {
   public static check(options: CommanderStatic): boolean {

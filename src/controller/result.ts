@@ -1,22 +1,7 @@
 import { VORequestResultBody } from '../valueObject/VORequestResultBody';
 import axios, { AxiosResponse } from 'axios';
 import { ConsoleMessage } from '../presenter/message';
-import { VOScanResult } from '../valueObject/VOScanResult';
-
-export type ScanResult = {
-  'status': string;
-  'project_id': string;
-  'scan_id': string;
-  'scan_count': number;
-  'alert_count': number;
-  'timezone': string;
-  'start_time':  number;
-  'end_time':  string;
-  'scan_result_url': string;
-  'complete': number;
-  'crawl_id': number;
-  'scan_list': Array<string>;
-}
+import { VOScanResult, ScanResult } from '../valueObject/VOScanResult';
 
 const sleep = (msec: number): Promise<unknown> => new Promise(resolve => setTimeout(resolve, msec));
 
@@ -29,11 +14,13 @@ export class Result {
     }
     return scanResult;
   }
-  private static async crawl(reqBody: string): Promise<ScanResult|undefined> {
+  public static async crawl(reqBody: string): Promise<ScanResult|undefined> {
     try {
       const url = `https://api.vaddy.net/v2/scan/result?${reqBody}`;
+      console.log(url);
       const result: AxiosResponse<ScanResult> = await axios.get(url);
       const status = result.data.status;
+      console.log(result.data);
       if ( status === 'scanning' ) {
         await sleep(5000);
         return this.crawl(reqBody);

@@ -1,19 +1,18 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
-import { VOScanId } from '../VOScanId';
+import { VOUser } from '../VOUser';
 import sinon from 'sinon';
 
-describe('VOScanId 正常系', () => {
+describe('VOUser 正常系', () => {
   it('string test', () => {
-    const voscan = VOScanId.of('test');
-    if ( voscan === undefined) {
+    const vouser = VOUser.of('demouser');
+    if ( vouser === undefined) {
       return;
     }
-    const scanId = voscan.toString();
-    expect(scanId).toEqual('test');
+    const user = vouser.toString();
+    expect(user).toEqual('demouser');
   });
 });
 
-describe('VOScanId 異常系', () => {
+describe('VOUser 異常系', () => {
   let exit: sinon.SinonStub;
   let logger: sinon.SinonStub;
   beforeEach(() => {
@@ -26,36 +25,32 @@ describe('VOScanId 異常系', () => {
   });
 
   it('number test', () => {
-    // @ts-ignore
-    VOScanId.of(123);
+    VOUser.of(123);
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });
   it('undefined test', () => {
-    VOScanId.of(undefined);
+    VOUser.of(undefined);
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });
   it('null test', () => {
-    VOScanId.of(null);
+    VOUser.of(null);
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });
   it('array in string test', () => {
-    // @ts-ignore
-    VOScanId.of(['test']);
+    VOUser.of(['test']);
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });
   it('array in number test', () => {
-    // @ts-ignore
-    VOScanId.of([123]);
+    VOUser.of([123]);
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });
   it('key-value object test', () => {
-    // @ts-ignore
-    VOScanId.of({'key': 'value'});
+    VOUser.of({'key': 'value'});
     expect(exit.calledOnce).toBeTruthy();
     expect(logger.calledOnce).toBeTruthy();
   });

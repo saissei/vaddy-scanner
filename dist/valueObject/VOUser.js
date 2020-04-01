@@ -1,15 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const VOErrorHandler_1 = require("./VOErrorHandler");
-const message_1 = require("../presenter/message");
+const error_1 = require("../controller/error");
 class VOUser {
     constructor(userId) {
         this.userId = userId;
     }
     static of(userId) {
         if (typeof userId !== 'string') {
-            const errorMessage = VOErrorHandler_1.VOError.typeError('authkey is not found or input data type is not string');
-            message_1.ConsoleMessage.error(errorMessage);
+            error_1.ErrorSwitcher.handle('authkey is not found or input data type is not string');
             return;
         }
         return new VOUser(userId);

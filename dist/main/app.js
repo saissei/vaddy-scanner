@@ -17,16 +17,21 @@ const VOScanId_1 = require("../valueObject/VOScanId");
 const VOConfig_1 = require("../valueObject/VOConfig");
 const VOScanResult_1 = require("../valueObject/VOScanResult");
 const result_1 = require("../controller/result");
+const error_1 = require("../controller/error");
 commander_1.default
     .option('-u, --user <items>', 'VAddyのログインユーザーを入力してください')
     .option('-k, --authkey <items>', 'VAddyのAPI_KEYを入力してください')
     .option('-p, --projectid <items>', 'VAddyのProject_Idを入力してください')
     .option('-c, --crawlid <items>', 'VAddyのCrawl＿Idを入力してください')
+    .option('-f, --file <items>', 'VAddyのユーザー情報を含む設定ファイル名を入力してください')
     .parse(process.argv);
 message_1.ConsoleMessage.info('process start.');
 const optionCheck = argsController_1.ArgsController.check(commander_1.default);
 if (!optionCheck) {
-    const userConfig = VOConfig_1.VOConfig.load();
+    if (!commander_1.default.file) {
+        error_1.ErrorSwitcher.handle('オプションを指定しない場合はコンフィグファイルを指定してください。');
+    }
+    const userConfig = VOConfig_1.VOConfig.load(commander_1.default.file);
     if (userConfig === undefined) {
         message_1.ConsoleMessage.error('VAddy config was not found');
         process.exit(1);

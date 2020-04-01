@@ -12,8 +12,8 @@ export class VOConfig {
   private userConf: UserInfo;
   public static load(fileName: string): VOConfig | undefined {
     const envFile = path.resolve(process.cwd(), fileName);
-    dotenv.config({path: envFile, debug: true});
-    console.log(envFile);
+    dotenv.config({path: envFile});
+    console.log(process.env.crawlId);
     /* eslint-disable @typescript-eslint/camelcase */
     const user = process.env.user;
     const auth_key = process.env.key;
@@ -21,13 +21,13 @@ export class VOConfig {
     const crawl = process.env.crawlId;
     const crawl_id = Number(crawl);
 
-    if ( user === undefined) {
+    if ( user === undefined || user === 'undefined') {
       return;
     }
-    if ( auth_key === undefined) {
+    if ( auth_key === undefined || auth_key === 'undefined') {
       return;
     }
-    if ( project_id === undefined) {
+    if ( project_id === undefined || project_id === 'undefined') {
       return;
     }
     if ( !isNaN(crawl_id) ){
