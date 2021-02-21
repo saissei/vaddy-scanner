@@ -38,7 +38,8 @@ describe('Result nomal test', () => {
     const stub = sinon.stub();
     Result.crawl = stub;
     stub.resolves(resultSample.data);
-    const reqBody = VORequestResultBody.of(vouser, voauth, voscan);
+  if (!vouser || !voscan || !voauth || !voscan) return;
+  const reqBody = VORequestResultBody.of(vouser, voauth, voscan);
 
     const checkResult = await Result.reference(reqBody);
     expect(checkResult).toEqual(resultSample.data);
@@ -53,7 +54,8 @@ describe('Result nomal test', () => {
     const stub = sinon.stub();
     Result.crawl = stub;
     stub.resolves(undefined);
-    const reqBody = VORequestResultBody.of(vouser, voauth, voscan);
+  if (!vouser || !voscan || !voauth || !voscan) return;
+  const reqBody = VORequestResultBody.of(vouser, voauth, voscan);
     const checkResult = await Result.reference(reqBody);
     expect(checkResult).toBeUndefined();
   });

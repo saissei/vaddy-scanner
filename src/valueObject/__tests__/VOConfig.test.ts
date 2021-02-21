@@ -6,7 +6,9 @@ describe('VOConfig 正常系', () => {
   let env: sinon.SinonStub;
   let value: sinon.SinonStub;
   beforeEach(() => {
+    // @ts-ignore
     env = sinon.stub(dotenv, 'config');
+    // @ts-ignore
     value = sinon.stub(process, 'env');
   });
   afterEach(() => {
@@ -21,7 +23,9 @@ describe('VOConfig 正常系', () => {
     process.env.crawlId = '123';
 
     const conf = VOConfig.load('.env.test1');
+    if (!conf) return;
     const configJson = conf.toJson();
+
     const expectation: UserInfo = {
       user: 'demoUser',
       'auth_key': 'sampleKey',
@@ -41,6 +45,8 @@ describe('VOConfig 正常系', () => {
     process.env.crawlId = undefined;
 
     const conf = VOConfig.load('.env.test2');
+    if (!conf) return;
+
     const configJson = conf.toJson();
     const expectation: UserInfo = {
       user: 'demoUser',
@@ -56,8 +62,10 @@ describe('VOConfig 正常系', () => {
 });
 
 describe('VOConfig 異常系', () => {
+  // @ts-ignore
   let env: sinon.SinonStub;
   beforeEach(() => {
+    // @ts-ignore
     env = sinon.stub(dotenv, 'config');
   });
   afterEach(() => {

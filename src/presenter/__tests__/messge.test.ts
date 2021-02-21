@@ -6,8 +6,11 @@ describe('ConsoleMessage test', () => {
   let errorLogger: sinon.SinonStub;
   let logger: sinon.SinonStub;
   beforeEach(() => {
+    // @ts-ignore
     logger = sinon.stub(console, 'log');
+    // @ts-ignore
     infoLogger = sinon.stub(console, 'info');
+    // @ts-ignore
     errorLogger = sinon.stub(console, 'error');
   });
   afterEach(() => {

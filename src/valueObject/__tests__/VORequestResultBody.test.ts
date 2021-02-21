@@ -19,6 +19,8 @@ describe('VORequestResultBody 正常系', () => {
   };
 
   const voconfig = VOConfig.load('.env.test1');
+  if (!vouser || !voconfig || !voauth || !voscan) return;
+
   const expectationQuery = `user=${user}&auth_key=${auth_key}&scan_id=${scan_id}`;
 
   it('コマンドラインからの設定', () => {

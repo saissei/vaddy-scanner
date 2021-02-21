@@ -5,7 +5,9 @@ describe('ErrorSwitcher Normal', () => {
   let exit: sinon.SinonStub;
   let logger: sinon.SinonStub;
   beforeEach(() => {
+    // @ts-ignore
     exit = sinon.stub(process, 'exit');
+    // @ts-ignore
     logger = sinon.stub(console, 'error');
   });
   afterEach(() => {

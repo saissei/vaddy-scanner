@@ -6,10 +6,12 @@ describe('VOError 正常系', () => {
     expect(err).toEqual('test');
   });
   it('undefined test', () => {
+    // @ts-ignore
     const err = VOError.typeError(undefined);
     expect(err).toEqual(undefined);
   });
   it('null test', () => {
+    // @ts-ignore
     const err = VOError.typeError(null);
     expect(err).toEqual(null);
   });
