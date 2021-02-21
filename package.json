@@ -1,6 +1,6 @@
 {
   "name": "vaddy-scanner",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "main": "index.js",
   "license": "MIT",
   "private": false,
@@ -12,7 +12,7 @@
     "test": "npx jest test --no-cache --silent=false --verbose true --coverage"
   },
   "bin": {
-    "vaddy-scanner": "./dist/main/app.js"
+    "vaddy-scanner": "dist/main/app.js"
   },
   "files": [
     "dist",
